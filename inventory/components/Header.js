@@ -1,20 +1,21 @@
 import React from 'react';
-import restock from '../assets/restock.png';
+
+
 const Header = () => {
   return (
-    <header class="text-gray-600 body-font">
-    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-      <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+    <header className="text-gray-600 body-font bg-indigo-300">
+    <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
     </svg>
-        <span class="ml-3 text-xl">INVENTORY</span>
+        <span className="ml-3 text-3xl">INVENTORY</span>
       </a>
-      <nav class="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-        <a class="mr-5 hover:text-gray-900">Inventory Display</a>
-        <a class="mr-5 hover:text-gray-900">Second Link</a>
-        <a class="mr-5 hover:text-gray-900">Third Link</a>
-        <a class="mr-5 hover:text-gray-900">Fourth Link</a>
+      <nav className="md:ml-auto md:mr-4 ml-9 text-xl flex flex-wrap items-center justify-center">
+        <a className="mr-5 hover:text-gray-900" href="/Inventory">Inventory</a>
+        <a className="mr-5 hover:text-gray-900" href="/AddProducts">Add Products</a>
+        <a className="mr-5 hover:text-gray-900">Orders</a>
+        <a className="mr-5 hover:text-gray-900" href="/AddOrders">Add Orders</a>
       </nav>
       
     </div>
