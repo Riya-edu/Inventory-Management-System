@@ -9,9 +9,9 @@ import {
   MdPeople,
   MdOutlineSettings,
   MdHelpCenter,
- 
 } from "react-icons/md";
 import Menulink from './menulink/menulink';
+
 const menuItems = [
   {
     title: "Pages",
@@ -77,26 +77,26 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
-    <div className='container sticky pt-10 font-semibold text-lg '>
-
-    <div className='h-10 w-20 rounded-xl object-cover mb-0'>
-    <img src="/noavatar.png" alt=""/>
-    </div>
-    <div className='ml-0 pl-0 flex-col flex content-center g-20 m-20 font-bold text-xl'>
-      <span >Albert Einstien</span>
-      <span>Admin</span>
-   </div>
-    <ul>
-        {menuItems.map((icon) => (
-          <li key={icon.title}>
-            <span>{icon.title}</span>
-              {icon.list.map((item) => (
-                <Menulink item={item} key={item.title}/>
-              ))}          
+    <div className='w-64 h-full p-6 bg-slate-900 text-white sticky top-0'>
+      <div className='flex flex-col items-center mb-6'>
+        <img src="/noavatar.png" alt="Avatar" className='h-20 w-20 rounded-full object-cover mb-2' />
+        <div className='text-center'>
+          <span className='block font-bold text-xl'>Albert Einstein</span>
+          <span className='text-gray-400'>Admin</span>
+        </div>
+      </div>
+      <ul className='space-y-6'>
+        {menuItems.map((menu) => (
+          <li key={menu.title}>
+            <span className='block text-gray-500 uppercase mb-2'>{menu.title}</span>
+            <ul className='space-y-2'>
+              {menu.list.map((item) => (
+                <Menulink item={item} key={item.title} />
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
-    
     </div>
   )
 }

@@ -1,0 +1,194 @@
+const port = 4000;
+const express = require("express");
+const app = express();
+const path = require("path");
+const cors = require("cors");
+const mongoose = require("mongoose");
+
+
+app.use(express.json());
+app.use(cors());
+
+
+mongoose.connect("mongodb+srv://edu4riya:edu4riy%40@cluster0.vvdl7v6.mongodb.net/dashboard?retryWrites=true&w=majority&appName=Cluster0")
+
+
+
+app.get("/",(req,res)=>{
+  res.send("Express is Running")
+})
+
+
+const Product = mongoose.model("Product", {
+  id:{
+        type: Number,
+        required: true,
+    },
+    productName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    status: {
+      type: String,
+      enum: ['available', 'out of stock'],
+      default: 'available',
+    },
+  });
+
+// Model for Order Collection
+
+const Order = mongoose.model("Order",{
+    id:{
+        type:Number,
+    },
+    customerName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  customerName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+ 
+  quantity: {
+    type: Number,
+    required: true,
+    min: 1,
+  },
+  status: {
+    type: String,
+    enum: [ 'pending', 'cancelled', 'inprogress'],
+    default: 'pending',
+  },
+},
+  { timestamps: true },
+);
+
+// Creating API to add new orders
+
+app.post('/addorder', async(req,res) => {
+    let orders = await Order.find({});
+    let id;
+    if(orders.length>0){
+        let last_order_array = products.slice(-1);
+        let last_order = last_product_order[0];
+        id = last_order.id+1;
+    }
+    else{
+        id=1;
+    }
+    const order = new Order({
+        id:id,
+        customername:req.body.customerName,
+        quantity:req.body.quantity,
+        status:req.body.status,
+
+    });
+
+    console.log(order);
+    await order.save();
+    console.log("Saved");
+    res.json({
+        success:true,
+        name:req.body.name,
+    })
+})
+
+//Creating API to remove orders
+
+app.post('/removeorder',async(req,res)=>{
+    await Product.findOneAndDelete({id:req.body.id});
+    console.log("Removed");
+    res.json({
+        success: true,
+        ordername:req.body.ordername
+    })
+
+// Creating API to display orders
+
+    app.get('/allorders', async(req, res)=>{
+        let orders = await Product.find({});
+        console.log("All Orders Fetched");
+        res.send(orders);
+      })
+})
+
+
+
+
+
+// API for adding new product
+
+  app.post('/addproduct', async(req, res)=>{
+    let products = await Product.find({});
+    let id;
+    if(products.length>0){
+        let last_product_array = products.slice(-1);
+        let last_product = last_product_array[0];
+        id = last_product.id+1;
+    }
+    else{
+        id=1;
+    }
+    const product = new Product({
+        id:id,
+        productName:req.body.productName,
+        category:req.body.category,
+        quantity:req.body.quantity,
+        status:req.body.status,
+    });
+    console.log(product);
+    await product.save();
+    console.log("Saved");
+    res.json({
+        success:true,
+        name:req.body.name,
+    })
+})
+
+// Creating API for Product deletion from db
+
+app.post('/removeproduct',async(req,res)=>{
+  await Product.findOneAndDelete({id:req.body.id});
+  console.log("Removed");
+  res.json({
+      success: true,
+      productname:req.body.productname
+  })
+  
+
+})
+
+// Creating API for getting all products
+
+app.get('/allproducts', async(req, res)=>{
+  let products = await Product.find({});
+  console.log("All Products Fetched");
+  res.send(products);
+})
+
+
+
+
+//App will run Here
+app.listen(port,(error)=>{
+  if (!error) {
+      console.log("Server is running on Port "+port)
+  }
+  else{
+      console.log("error: "+error)
+  }
+})

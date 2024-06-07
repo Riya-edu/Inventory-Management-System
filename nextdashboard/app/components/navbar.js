@@ -13,7 +13,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="container mx-auto my-4 p-4 ml-8 rounded-xl flex bg-slate-900 justify-between items-center">
+    <div className="container mx-auto p-4 rounded-xl flex bg-slate-900 justify-between items-center">
       <div className="font-bold text-xl text-white capitalize">
         {pathname.split("/").pop() || 'Home'}
       </div>
