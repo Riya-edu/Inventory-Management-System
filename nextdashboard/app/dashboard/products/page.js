@@ -60,9 +60,7 @@ const Product = () => {
     }
   };
 
-  if (loading) {
-    return <Loading/>
-  }
+ 
 
   return (
     <div className="bg-gray-900 p-4 sm:p-5 rounded-lg mt-4">
