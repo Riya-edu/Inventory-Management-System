@@ -1,48 +1,76 @@
-import Image from "next/image";
+"use client";
 
-const Details = () => {
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Loading from '../../../components/loading/page';
+import toast from "react-hot-toast";
+import { Order } from "../../../utils/data"; 
+
+const OrderDetails = () => {
+  const { id } = useParams();
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [completed, setCompleted] = useState(false);
+
+  useEffect(() => {
+    const orderDetails = Order.find(order => order.id === parseInt(id));
+    setOrder(orderDetails);
+    setLoading(false);
+  }, [id]);
+
+  const handleCompleteOrder = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setCompleted(true);
+      setLoading(false);
+      toast.success('Marked as completed!');
+    }, 1000);
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!order) {
+    return <div>Order not found</div>;
+  }
+
   return (
-    <div className="bg-gray-900 p-8 rounded-lg mt-6 shadow-lg">
-      {/* Customer Info */}
-      <div className="mb-6">
-        <div className="flex items-center mb-4">
-          <div className="relative w-16 h-16 mr-4">
-            <img src="/noavatar.png" alt="Customer Image" className="rounded-full object-cover w-full h-full" />
-          </div>
-          <div className="text-white text-2xl font-semibold">John Doe</div>
-        </div>
-        <div className="text-gray-400">Created At: 2023-01-01</div>
-      </div>
-
-      {/* Order Details */}
-      <div className="bg-gray-800 p-6 rounded-lg space-y-6 shadow-inner">
-        <div>
-          <label className="block text-gray-400 font-medium mb-2">Product Name</label>
-          <div className="w-full p-4 bg-gray-700 text-white rounded-lg border border-gray-600 hover:bg-gray-600 transition duration-300 ease-in-out">
-            Awesome Product
-          </div>
-        </div>
-        <div>
-          <label className="block text-gray-400 font-medium mb-2">Item Quantity</label>
-          <div className="w-full p-4 bg-gray-700 text-white rounded-lg border border-gray-600 hover:bg-gray-600 transition duration-300 ease-in-out">
-            2
-          </div>
-        </div>
-        <div>
-          <label className="block text-gray-400 font-medium mb-2">Status</label>
-          <div className="w-full p-4 bg-gray-700 text-white rounded-lg border border-gray-600 hover:bg-gray-600 transition duration-300 ease-in-out">
-            In Progress
-          </div>
-        </div>
-        <div>
-          <label className="block text-gray-400 font-medium mb-2">Description</label>
-          <div className="w-full p-4 bg-gray-700 text-white rounded-lg border border-gray-600 hover:bg-gray-600 transition duration-300 ease-in-out">
-            This is a detailed description of the product.
-          </div>
-        </div>
-      </div>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Order Details</h1>
+      <p><strong>Order ID:</strong> {order.id}</p>
+      <p className="mb-6"><strong>Customer:</strong> {order.customer}</p>
+      <table className="table-auto w-full">
+        <thead>
+          <tr>
+            <th className="border bg-gray-600 font-extrabold px-4 py-2">Item</th>
+            <th className="border bg-gray-600 font-extrabold px-4 py-2">Quantity</th>
+            <th className="border bg-gray-600 font-extrabold px-4 py-2">Stock Availability</th>
+          </tr>
+        </thead>
+        <tbody>
+          {order.items.map(item => (
+            <tr key={item.id}>
+              <td className="border px-4 py-2">{item.name}</td>
+              <td className="border px-4 py-2">{item.quantity}</td>
+              <td className="border px-4 py-2">
+                {item.stock >= item.quantity ? 'In Stock' : 'Out of Stock'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {!completed && (
+        <button
+          onClick={handleCompleteOrder}
+          className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-4 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+        >
+          Mark as Completed
+        </button>
+      )}
+      {completed && <p className="text-green-500 mt-4 font-bold">Order Completed!</p>}
     </div>
   );
 };
 
-export default Details;
+export default OrderDetails;

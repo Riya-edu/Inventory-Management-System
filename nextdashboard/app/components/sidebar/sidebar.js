@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   MdDashboard,
   MdSupervisedUserCircle,
@@ -75,20 +75,23 @@ const menuItems = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
-    <div className='w-64 h-full p-6 bg-slate-900 text-white sticky top-0'>
-      <div className='flex flex-col items-center mb-6'>
-        <img src="/noavatar.png" alt="Avatar" className='h-20 w-20 rounded-full object-cover mb-2' />
+    <div className={`fixed md:relative z-20 h-full p-4 md:p-6 lg:p-8 bg-slate-900 text-white transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
+      <div className='flex justify-end md:hidden'>
+        <button onClick={toggleSidebar} className='text-white'>Close</button>
+      </div>
+      <div className='flex flex-col items-center mb-4 md:mb-6'>
+        <img src="/noavatar.png" alt="Avatar" className='h-16 w-16 md:h-20 md:w-20 rounded-full object-cover mb-2' />
         <div className='text-center'>
-          <span className='block font-bold text-xl'>Albert Einstein</span>
+          <span className='block font-bold text-lg md:text-xl'>Albert Einstein</span>
           <span className='text-gray-400'>Admin</span>
         </div>
       </div>
-      <ul className='space-y-6'>
+      <ul className='space-y-4 md:space-y-6'>
         {menuItems.map((menu) => (
           <li key={menu.title}>
-            <span className='block text-gray-500 uppercase mb-2'>{menu.title}</span>
+            <span className='block text-gray-500 uppercase mb-2 text-sm md:text-base'>{menu.title}</span>
             <ul className='space-y-2'>
               {menu.list.map((item) => (
                 <Menulink item={item} key={item.title} />
@@ -98,7 +101,7 @@ const Sidebar = () => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

@@ -15,7 +15,7 @@ const AddProductPage = () => {
   };
 
   const Add_Product = async (e) => {
-    e.preventDefault();  // Prevent form from submitting
+    e.preventDefault();  
     console.log(productDetails);
 
     try {
@@ -45,9 +45,9 @@ const AddProductPage = () => {
   };
 
   return (
-    <div className="bg-gray-900 p-8 rounded-lg mt-8 max-w-2xl mx-auto shadow-2xl">
+    <div className="bg-gray-900 p-4 sm:p-8 rounded-lg mt-8 max-w-2xl mx-auto shadow-2xl">
       <h2 className="text-3xl font-bold text-white mb-8 text-center">Add New Product</h2>
-      <form className="flex flex-wrap justify-between gap-6" onSubmit={Add_Product}>
+      <form className="flex flex-wrap gap-6" onSubmit={Add_Product}>
         <input
           type="text"
           placeholder="Product Name"
@@ -55,9 +55,9 @@ const AddProductPage = () => {
           required
           value={productDetails.productName}
           onChange={changeHandler}
-          className="w-full md:w-[48%] p-4 bg-gray-700 text-white border-2 border-gray-600 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-teal-500 transition duration-200 shadow-md"
+          className="w-full p-4 bg-gray-700 text-white border-2 border-gray-600 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-teal-500 transition duration-200 shadow-md"
         />
-        <div className="relative w-full md:w-[48%] mb-6">
+        <div className="w-full md:w-1/2 relative">
           <select
             name="category"
             id="category"
@@ -84,9 +84,9 @@ const AddProductPage = () => {
           required
           value={productDetails.quantity}
           onChange={changeHandler}
-          className="w-full md:w-[48%] p-4 bg-gray-700 text-white border-2 border-gray-600 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-teal-500 transition duration-200 shadow-md"
+          className="w-full p-4 bg-gray-700 text-white border-2 border-gray-600 rounded-lg mb-6 focus:outline-none focus:ring-4 focus:ring-teal-500 transition duration-200 shadow-md"
         />
-        <div className="relative w-full md:w-[48%] mb-6">
+        <div className="w-full md:w-1/2 relative">
           <select
             name="status"
             id="status"
@@ -99,7 +99,6 @@ const AddProductPage = () => {
           <option value="available">Available</option>
           <option value="out of stock">Out of Stock</option>
           <option value="discontinued">Discontinued</option>
-        
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
             <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

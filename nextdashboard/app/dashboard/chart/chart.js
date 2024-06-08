@@ -42,12 +42,10 @@ const data = [
 
 const Chart = () => {
   return (
-    <div className="h-96 bg-gray-900 p-6 rounded-lg">
-      <h2 className="font-light text-gray-400 mb-6">Weekly Recap</h2>
+    <div className="h-64 md:h-80 lg:h-96 bg-gray-900 p-4 md:p-6 rounded-lg">
+      <h2 className="font-light text-gray-400 mb-4 md:mb-6">Weekly Recap</h2>
       <ResponsiveContainer width="100%" height="80%">
         <LineChart
-          width={400}
-          height={250}
           data={data}
           margin={{
             top: 5,
@@ -68,4 +66,4 @@ const Chart = () => {
   )
 }
 
-export default Chart
+export default Chart;

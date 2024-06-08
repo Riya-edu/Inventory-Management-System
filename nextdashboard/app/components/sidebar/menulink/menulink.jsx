@@ -10,7 +10,9 @@ const Menulink = ({ item }) => {
 
   return (
     <Link href={item.path}>
-      <div className={`flex items-center space-x-3 px-3 py-2 rounded-md transition-colors duration-200 cursor-pointer ${isActive ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-slate-700 hover:text-white'}`}>
+      <div className={`flex items-center space-x-3 px-3 py-2 rounded-md transition-colors duration-200 cursor-pointer 
+        ${isActive ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-slate-700 hover:text-white'}
+        md:text-lg xl:text-xl`}>
         <div className={`text-xl ${isActive ? 'text-white' : 'text-gray-400'}`}>{item.icon}</div>
         <span>{item.title}</span>
       </div>

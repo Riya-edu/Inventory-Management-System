@@ -8,8 +8,12 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
+// Connecting MongoDB databse
+
 mongoose.connect("mongodb+srv://edu4riya:edu4riy%40@cluster0.vvdl7v6.mongodb.net/dashboard?retryWrites=true&w=majority&appName=Cluster0");
 
+
+// Schema for product
 const Product = mongoose.model("Product", {
   id: {
     type: Number,
@@ -36,6 +40,8 @@ const Product = mongoose.model("Product", {
     default: 'available',
   },
 });
+
+// Schema for Orders
 
 const Order = mongoose.model("Order", {
   id: {
@@ -65,6 +71,8 @@ const Order = mongoose.model("Order", {
     default: 'pending',
   },
 });
+
+// API End Point to add orders
 
 app.post('/addorder', async (req, res) => {
   try {
@@ -98,6 +106,8 @@ app.post('/addorder', async (req, res) => {
   }
 });
 
+//API Endpoint to remove orders
+
 app.post('/removeorder', async (req, res) => {
   try {
     await Order.findOneAndDelete({ id: req.body.id });
@@ -112,6 +122,8 @@ app.post('/removeorder', async (req, res) => {
   }
 });
 
+// API endpoint to display all orders
+
 app.get('/allorders', async (req, res) => {
   try {
     let orders = await Order.find({});
@@ -122,7 +134,19 @@ app.get('/allorders', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+// Endpoint to fetch order details by orderId
+app.get('/order/:orderId', (req, res) => {
+  const { orderId } = req.params;
+  const order = orders[orderId];
 
+  if (order) {
+    res.json(order);
+  } else {
+    res.status(404).json({ error: 'Order not found' });
+  }
+});
+
+// Endpoint to add product
 app.post('/addproduct', async (req, res) => {
   try {
     let products = await Product.find({});
@@ -153,6 +177,8 @@ app.post('/addproduct', async (req, res) => {
   }
 });
 
+// Endpoint to remove product
+
 app.post('/removeproduct', async (req, res) => {
   try {
     await Product.findOneAndDelete({ id: req.body.id });
@@ -166,6 +192,8 @@ app.post('/removeproduct', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+// Endpoint to display all products
 
 app.get('/allproducts', async (req, res) => {
   try {
