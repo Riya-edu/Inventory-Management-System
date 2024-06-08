@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Loading from '../../../components/loading/page';
-import toast from "react-hot-toast";
-import { Order } from "../../../utils/data"; 
+
+import Order from '../page';
 
 const OrderDetails = () => {
   const { id } = useParams();
